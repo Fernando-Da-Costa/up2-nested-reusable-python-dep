@@ -1,0 +1,20 @@
+# Este workflow é projetado para ser chamado por outro workflow. Ele executa dois jobs: um para integração contínua em Python (python-ci)
+# e outro para abrir um pull request para o branch develop (open-pr-to-develop). 0 job de pull request só é executado se o job de integração contínua for bem-sucedido.
+
+name: "1 - [FEAT] build & PR"
+
+on:
+  workflow_call:
+
+jobs:
+  python-ci:
+    uses: Fernando-Da-Costa/up2-reusable-workflows-ci-python/.github/workflows/ci.yml
+    secrets: inherit
+
+  open-pr-to-develop:
+    uses: Fernando-Da-Costa/up2-reusable-workflows-common-pull-request/.github/workflows/create.yml@v2
+    needs:
+      - python-ci
+    with:
+      target-branch: develop
+      secrets: inherit
