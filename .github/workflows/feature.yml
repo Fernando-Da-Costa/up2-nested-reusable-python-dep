@@ -9,7 +9,8 @@ on:
 jobs:
   python-ci:
     uses: Fernando-Da-Costa/up2-reusable-workflows-ci-python/.github/workflows/ci.yml
-    secrets: inherit
+    with:
+      secrets: inherit
 
   open-pr-to-develop:
     uses: Fernando-Da-Costa/up2-reusable-workflows-common-pull-request/.github/workflows/create.yml@v2
@@ -18,4 +19,3 @@ jobs:
     with:
       target-branch: develop
       secrets: inherit
-	  
